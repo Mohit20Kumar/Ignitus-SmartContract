@@ -9,8 +9,9 @@ contract Flowers {
     }
 
     function sendEth() public payable {
-		require(msg.sender.balance >= msg.value, "Youd don't have enough funds"); // require that the sender has enough ether to send
-		(bool success, ) = owner.call{value: msg.value}(''); // send the amount of eth specified in msg.value and set the gast limit to 2000 units
-		require(success, 'Transfer failed'); // Check that the transfer was successful, if not trigger an error message
-	}
+        require(msg.value == 0.01 ether, "Please send exactly 0.01 ETH"); // Check if the sent value is 0.01 ETH
+		require(msg.sender.balance >= msg.value, "You don't have enough funds");
+        (bool success, ) = owner.call{value: msg.value}(''); // send the amount of eth specified in msg.value
+        require(success, 'Transfer failed'); // Check that the transfer was successful, if not trigger an error message
+    }
 }
